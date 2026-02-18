@@ -42,7 +42,9 @@ flutter run
 
 ## 📱 Screenshots
 
-<!-- Add your screenshots here -->
+![dashboard](screenshots/homepage.png)
+
+![form](screenshots/form.png)
 
 ## 🏗️ Architecture
 
@@ -54,32 +56,6 @@ The app follows a clean architecture pattern with:
 - **Widgets** - Reusable UI components
 - **Theme** - Centralized theme system for consistent styling
 - **Utils** - Animation utilities and helpers
-
-## 🎨 Theme System
-
-Costy uses a centralized theme system for easy customization:
-
-```dart
-import 'package:costy/theme/app_theme.dart';
-
-// Use predefined colors
-Container(color: AppColors.primary)
-
-// Use text styles
-Text('Title', style: AppTextStyles.h1)
-
-// Use spacing constants
-SizedBox(height: AppSpacing.lg)
-```
-
-See [lib/theme/README.md](lib/theme/README.md) for complete documentation.
-
-## 📦 Dependencies
-
-- `shared_preferences` - Local data storage
-- `google_fonts` - Manrope font family
-- `intl` - Date and number formatting
-- `uuid` - Generate unique IDs for subscriptions
 
 ## 🤝 Contributing
 
@@ -94,10 +70,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
-
-## 👨‍💻 Author
-
-Built with ❤️ using Flutter
 
 ## 🙏 Acknowledgments
 
