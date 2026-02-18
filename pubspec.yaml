@@ -1,0 +1,20 @@
+name: costy
+description: "Track subscriptions. Costy helps you stay on top of your finances by providing a simple and intuitive way to manage your subscriptions. With features like subscription tracking, reminders, and insights."
+publish_to: "none"
+version: 1.0.0+1
+environment:
+  sdk: ^3.10.8
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  shared_preferences: ^2.2.2
+  google_fonts: ^6.1.0
+  intl: ^0.19.0
+  uuid: ^4.2.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+flutter:
+  uses-material-design: true
