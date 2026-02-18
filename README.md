@@ -22,17 +22,20 @@ A beautiful and intuitive Flutter app for tracking your subscription expenses. S
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/costy.git
 cd costy
 ```
 
 2. Install dependencies:
+
 ```bash
 flutter pub get
 ```
 
 3. Run the app:
+
 ```bash
 flutter run
 ```
