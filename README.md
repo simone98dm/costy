@@ -42,9 +42,9 @@ flutter run
 
 ## 📱 Screenshots
 
-![dashboard](screenshots/homepage.png)
-
-![form](screenshots/form.png)
+| Dashboard                              | Form                          |
+| -------------------------------------- | ----------------------------- |
+| ![dashboard](screenshots/homepage.png) | ![form](screenshots/form.png) |
 
 ## 🏗️ Architecture
 
