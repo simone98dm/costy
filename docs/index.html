@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Costy - A beautiful Flutter app for tracking your subscription expenses"
+    />
+    <title>Costy 💰 - Subscription Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --bg-dark: #0a0e27;
+        --bg-card: #141937;
+        --bg-card-hover: #1a1f42;
+        --text-primary: #ffffff;
+        --text-secondary: #a0aec0;
+        --accent-blue: #3b82f6;
+        --accent-purple: #8b5cf6;
+        --accent-pink: #ec4899;
+        --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      }
+
+      body {
+        font-family:
+          "Manrope",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: var(--bg-dark);
+        color: var(--text-primary);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      header {
+        padding: 80px 0 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header-glow {
+        position: absolute;
+        top: -50%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(139, 92, 246, 0.3) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+        animation: pulse 4s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.5;
+          transform: translateX(-50%) scale(1);
+        }
+        50% {
+          opacity: 0.8;
+          transform: translateX(-50%) scale(1.1);
+        }
+      }
+
+      h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        background: linear-gradient(
+          135deg,
+          #667eea 0%,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        position: relative;
+        z-index: 1;
+      }
+
+      .tagline {
+        font-size: 1.5rem;
+        color: var(--text-secondary);
+        margin-bottom: 30px;
+        font-weight: 400;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 40px;
+      }
+
+      .btn {
+        padding: 14px 32px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn-primary {
+        background: var(--gradient-1);
+        color: white;
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+      }
+
+      .btn-secondary {
+        background: var(--bg-card);
+        color: white;
+        border: 2px solid var(--accent-purple);
+      }
+
+      .btn-secondary:hover {
+        background: var(--bg-card-hover);
+        transform: translateY(-2px);
+      }
+
+      /* Features Section */
+      .features {
+        padding: 60px 0;
+        position: relative;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 50px;
+        color: var(--text-primary);
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
+      }
+
+      .feature-card {
+        background: var(--bg-card);
+        padding: 30px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(139, 92, 246, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-1);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+        border-color: rgba(139, 92, 246, 0.5);
+      }
+
+      .feature-card:hover::before {
+        opacity: 1;
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        display: block;
+      }
+
+      .feature-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+        color: var(--text-primary);
+      }
+
+      .feature-card p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      /* Screenshots Section */
+      .screenshots {
+        padding: 60px 0;
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(139, 92, 246, 0.05) 100%
+        );
+      }
+
+      .screenshots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        margin-top: 40px;
+      }
+
+      .screenshot-card {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        background: var(--bg-card);
+        padding: 20px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(139, 92, 246, 0.2);
+      }
+
+      .screenshot-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 30px 60px rgba(139, 92, 246, 0.3);
+        border-color: rgba(139, 92, 246, 0.5);
+      }
+
+      .screenshot-card img {
+        width: 100%;
+        border-radius: 12px;
+        display: block;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .screenshot-label {
+        margin-top: 15px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: var(--text-primary);
+      }
+
+      /* Tech Stack */
+      .tech-stack {
+        padding: 60px 0;
+        text-align: center;
+      }
+
+      .tech-badges {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+
+      .badge {
+        background: var(--bg-card);
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        color: var(--text-secondary);
+        transition: all 0.3s ease;
+      }
+
+      .badge:hover {
+        background: var(--bg-card-hover);
+        border-color: rgba(139, 92, 246, 0.6);
+        color: var(--text-primary);
+        transform: translateY(-2px);
+      }
+
+      /* Footer */
+      footer {
+        padding: 40px 0;
+        text-align: center;
+        border-top: 1px solid rgba(139, 92, 246, 0.2);
+        margin-top: 60px;
+      }
+
+      footer p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+      }
+
+      footer a {
+        color: var(--accent-purple);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      footer a:hover {
+        color: var(--accent-pink);
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        .tagline {
+          font-size: 1.2rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .screenshots-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .cta-buttons {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .btn {
+          justify-content: center;
+        }
+      }
+
+      /* Smooth Scroll */
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-glow"></div>
+      <div class="container">
+        <h1>Costy 💰</h1>
+        <p class="tagline">
+          Track your subscriptions with elegance and intelligence
+        </p>
+        <p
+          style="color: var(--text-secondary); max-width: 600px; margin: 0 auto"
+        >
+          A beautiful and intuitive Flutter app for managing your recurring
+          expenses. Stay on top of your subscriptions with smart reminders and
+          detailed insights.
+        </p>
+        <div class="cta-buttons">
+          <a
+            href="https://github.com/simonedalmas/costy"
+            class="btn btn-primary"
+          >
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+              />
+            </svg>
+            View on GitHub
+          </a>
+          <a href="#features" class="btn btn-secondary">Explore Features</a>
+        </div>
+      </div>
+    </header>
+
+    <section id="features" class="features">
+      <div class="container">
+        <h2 class="section-title">✨ Features</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <span class="feature-icon">📊</span>
+            <h3>Interactive Dashboard</h3>
+            <p>
+              View all your active subscriptions at a glance with a beautiful
+              donut chart. Get instant insights into your spending patterns.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🔔</span>
+            <h3>Smart Reminders</h3>
+            <p>
+              Never miss a renewal date. Get timely notifications before your
+              subscriptions are due for payment.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">📅</span>
+            <h3>Comprehensive History</h3>
+            <p>
+              Track both active and inactive subscriptions with powerful
+              filtering options. Keep a complete record of all your expenses.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">💳</span>
+            <h3>Flexible Billing Cycles</h3>
+            <p>
+              Support for daily, weekly, monthly, and yearly subscriptions.
+              Track any recurring payment with ease.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🎨</span>
+            <h3>Beautiful Design</h3>
+            <p>
+              Smooth animations and a modern dark theme interface crafted for
+              the best user experience.
+            </p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">💾</span>
+            <h3>Privacy First</h3>
+            <p>
+              All your data is stored securely on your device. No cloud sync, no
+              data sharing - your privacy is protected.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screenshots">
+      <div class="container">
+        <h2 class="section-title">📱 Screenshots</h2>
+        <div class="screenshots-grid">
+          <div class="screenshot-card">
+            <img
+              src="../screenshots/homepage.png"
+              alt="Costy Dashboard - View your subscriptions at a glance"
+            />
+            <p class="screenshot-label">Dashboard View</p>
+          </div>
+          <div class="screenshot-card">
+            <img
+              src="../screenshots/form.png"
+              alt="Costy Add Subscription Form"
+            />
+            <p class="screenshot-label">Add Subscription</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tech-stack">
+      <div class="container">
+        <h2 class="section-title">🚀 Built With</h2>
+        <div class="tech-badges">
+          <span class="badge">Flutter</span>
+          <span class="badge">Dart</span>
+          <span class="badge">Material Design</span>
+          <span class="badge">SharedPreferences</span>
+          <span class="badge">Manrope Font</span>
+        </div>
+        <p
+          style="
+            color: var(--text-secondary);
+            margin-top: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+          "
+        >
+          Costy follows clean architecture principles with a well-organized
+          structure including models, services, screens, and reusable widgets
+          for maintainable and scalable code.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>
+          Made with ❤️ using Flutter |
+          <a href="https://github.com/simonedalmas/costy">GitHub</a> | Open
+          Source under
+          <a href="https://github.com/simonedalmas/costy/blob/main/LICENSE"
+            >MIT License</a
+          >
+        </p>
+        <p style="margin-top: 10px; font-size: 0.85rem">
+          © 2026 Costy. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
